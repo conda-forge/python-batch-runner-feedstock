@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/python-batch-runner-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/python-batch-runner-{{ version }}.tar.gz
   sha256: 9a25b20aab1210ffb707fcfa4428a10afe78e82ace33cf5264558f714e40697f
 
 build:
@@ -14,14 +14,14 @@ build:
     - pyrunner=pyrunner.cli:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
-    - python >=3.6
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -31,6 +31,7 @@ test:
     - pyrunner --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   summary:  Microframework for building small/medium scale batch applications without needing to build the scaffolding from scratch.
